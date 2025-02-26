@@ -3,6 +3,9 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AuthenticationModule } from './authentication/authentication.module';
+import { AuthenticationserviceService } from './authenticationservice/authenticationservice.service';
+import { AuthenticationcontrollerController } from './authenticationcontroller/authenticationcontroller.controller';
 
 @Module({
   imports: [
@@ -12,9 +15,10 @@ import { AppService } from './app.service';
       url: process.env.DATABASE_URL,
       autoLoadEntities: true,
       synchronize: true,
-    })
+    }),
+    AuthenticationModule
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, AuthenticationcontrollerController],
+  providers: [AppService, AuthenticationserviceService],
 })
 export class AppModule {}
